@@ -1,6 +1,7 @@
 package ysoserial.payloads.util;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.concurrent.Callable;
 
 import ysoserial.Deserializer;
@@ -17,7 +18,7 @@ import ysoserial.secmgr.ExecCheckingSecurityManager;
  * utility class for running exploits locally from command line
  */
 @SuppressWarnings("unused")
-public class PayloadRunner {
+public class PayloadRunner implements Serializable {
 
     public static void run(final Class<? extends ObjectPayload<?>> clazz, final String[] args) throws Exception {
         // ensure payload generation doesn't throw an exception
