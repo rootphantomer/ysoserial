@@ -1,3 +1,6 @@
+# yso项目分析与注释
+
+对该项目下的每个利用链进行分析并进行简单注释理解，方便后续不同链之间的拆解与重新组合。
 
 # ysoserial
 
@@ -13,7 +16,7 @@ A proof-of-concept tool for generating payloads that exploit unsafe Java object 
 
 Originally released as part of AppSecCali 2015 Talk
 ["Marshalling Pickles: how deserializing objects will ruin your day"](
-        https://frohoff.github.io/appseccali-marshalling-pickles/)
+https://frohoff.github.io/appseccali-marshalling-pickles/)
 with gadget chains for Apache Commons Collections (3.x and 4.x), Spring Beans/Core (4.x), and Groovy (2.3.x).
 Later updated to include additional gadget chains for
 [JRE <= 1.7u21](https://gist.github.com/frohoff/24af7913611f8406eaf3) and several other libraries.
@@ -101,7 +104,8 @@ $ java -cp ysoserial.jar ysoserial.exploit.RMIRegistryExploit myhost 1099 Common
 
 [![GitHub release](https://img.shields.io/github/downloads/frohoff/ysoserial/latest/total)](https://github.com/frohoff/ysoserial/releases/latest/download/ysoserial-all.jar)
 
-Download the [latest release jar](https://github.com/frohoff/ysoserial/releases/latest/download/ysoserial-all.jar) from GitHub releases.
+Download the [latest release jar](https://github.com/frohoff/ysoserial/releases/latest/download/ysoserial-all.jar) from
+GitHub releases.
 
 ## Building
 
@@ -123,6 +127,9 @@ Requires Java 1.7+ and Maven 3.x+
 5. Create new Pull Request
 
 ## See Also
-* [Java-Deserialization-Cheat-Sheet](https://github.com/GrrrDog/Java-Deserialization-Cheat-Sheet): info on vulnerabilities, tools, blogs/write-ups, etc.
-* [marshalsec](https://github.com/frohoff/marshalsec): similar project for various Java deserialization formats/libraries
+
+* [Java-Deserialization-Cheat-Sheet](https://github.com/GrrrDog/Java-Deserialization-Cheat-Sheet): info on
+  vulnerabilities, tools, blogs/write-ups, etc.
+* [marshalsec](https://github.com/frohoff/marshalsec): similar project for various Java deserialization
+  formats/libraries
 * [ysoserial.net](https://github.com/pwntester/ysoserial.net): similar project for .NET deserialization

