@@ -33,7 +33,7 @@ jobs:
         run: mv target/ysoserial-${{ github.ref_name }}-all.jar target/ysoserial-all.jar
 
       - name: Publish GitHub release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
