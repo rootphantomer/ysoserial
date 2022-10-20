@@ -26,6 +26,11 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 
 /*
+
+InterceptorMethodHandler.redObject()
+InterceptorMethodHandler.executeInterception()
+.getInterceptors(
+
     by @matthias_kaiser
 */
 @SuppressWarnings({"rawtypes", "unchecked"})
