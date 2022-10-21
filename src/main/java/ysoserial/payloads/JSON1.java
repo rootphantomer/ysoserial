@@ -75,8 +75,8 @@ public class JSON1 implements ObjectPayload<Object> {
     /**
      * Will call all getter methods on payload that are defined in the given interfaces
      */
-    public static Map makeCallerChain ( Object payload, Class... ifaces ) throws OpenDataException, NoSuchMethodException, InstantiationException,
-            IllegalAccessException, InvocationTargetException, Exception, ClassNotFoundException {
+    public static Map makeCallerChain ( Object payload, Class... ifaces ) throws
+        Exception {
         CompositeType rt = new CompositeType("a", "b", new String[] {
             "a"
         }, new String[] {
@@ -105,7 +105,7 @@ public class JSON1 implements ObjectPayload<Object> {
         Map m = new HashMap();
         m.put("t", cdsProxy);
         Reflections.setFieldValue(jo, "properties", m);
-        Reflections.setFieldValue(jo, "properties", m);
+//        Reflections.setFieldValue(jo, "properties", m);
         Reflections.setFieldValue(t1, "dataMap", jo);
         Reflections.setFieldValue(t2, "dataMap", jo);
         return Gadgets.makeMap(t1, t2);

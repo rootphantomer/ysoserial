@@ -110,6 +110,7 @@ public class Wicket1 implements ReleaseableObjectPayload<DiskFileItem> {
     }
 
     public static void main ( final String[] args ) throws Exception {
+//        "write;/tmp;blue lobster"
         PayloadRunner.run(FileUpload1.class, args);
     }
 }
