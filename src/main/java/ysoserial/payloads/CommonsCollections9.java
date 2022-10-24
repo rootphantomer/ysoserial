@@ -4,6 +4,7 @@ import org.apache.commons.collections.Factory;
 import org.apache.commons.collections.keyvalue.TiedMapEntry;
 import org.apache.commons.collections.map.LazyMap;
 import org.junit.jupiter.api.Test;
+import ysoserial.payloads.annotation.Authors;
 import ysoserial.payloads.annotation.Dependencies;
 import ysoserial.payloads.util.PayloadRunner;
 import ysoserial.payloads.util.Reflections;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Dependencies({"commons-collections:commons-collections:3.1"})
+@Authors({Authors.PH4NT0MER})
+
 public class CommonsCollections9 extends PayloadRunner implements ObjectPayload<Serializable> {
 
     @Override

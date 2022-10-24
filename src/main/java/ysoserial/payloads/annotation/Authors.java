@@ -15,12 +15,13 @@ public @interface Authors {
     String MBECHLER = "mbechler";
     String JACKOFMOSTTRADES = "JackOfMostTrades";
     String MATTHIASKAISER = "matthias_kaiser";
-    String GEBL = "gebl" ;
+    String GEBL = "gebl";
     String JACOBAINES = "jacob-baines";
     String JASINNER = "jasinner";
     String KULLRICH = "kai_ullrich";
     String TINT0 = "_tint0";
     String SCRISTALLI = "scristalli";
+    String PH4NT0MER = "ph4nt0mer";
     String HANYRAX = "hanyrax";
     String EDOARDOVIGNATI = "EdoardoVignati";
     String JANG = "Jang";

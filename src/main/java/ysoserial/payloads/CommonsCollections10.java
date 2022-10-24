@@ -3,6 +3,7 @@ package ysoserial.payloads;
 import org.apache.commons.collections.Factory;
 import org.apache.commons.collections.map.LazyMap;
 import org.junit.jupiter.api.Test;
+import ysoserial.payloads.annotation.Authors;
 import ysoserial.payloads.annotation.Dependencies;
 import ysoserial.payloads.util.Gadgets;
 import ysoserial.payloads.util.PayloadRunner;
@@ -14,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Dependencies({"commons-collections:commons-collections:3.1"})
+@Authors({Authors.PH4NT0MER})
+
 public class CommonsCollections10 extends PayloadRunner implements ObjectPayload<InvocationHandler> {
     //    成功
     @Override

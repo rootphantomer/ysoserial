@@ -26,7 +26,7 @@ import java.util.Map;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Dependencies({"commons-collections:commons-collections:3.1"})
-@Authors({Authors.SCRISTALLI, Authors.HANYRAX, Authors.EDOARDOVIGNATI})
+@Authors({Authors.PH4NT0MER})
 
 public class CommonsCollections12 extends PayloadRunner implements ObjectPayload<Hashtable> {
 
