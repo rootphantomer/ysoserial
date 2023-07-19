@@ -1,4 +1,4 @@
-package ysoserial.Test;
+package Test;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class HelloImp extends UnicastRemoteObject implements HelloInter {
+public class HelloImp extends UnicastRemoteObject implements ysoserial.Test.HelloInter {
 
     private static final long serialVersionUID = 1L;
     protected HelloImp() throws RemoteException {

